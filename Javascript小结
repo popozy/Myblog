@@ -1,0 +1,177 @@
+0. 什么是前端
+广义上和用户产生交互的Interface。（移动端、PC、Web等--大前端概念，ref: http://www.infoq.com/cn/articles/talking-about-daqianduan）
+狭义：传统的Web浏览器交互界面（HTML+CSS+JS）
+1. Web前端入门
+  1.1 HTML的定义与作用（DOM结构）
+
+
+通过 HTML DOM，树中的所有节点均可通过 JavaScript 进行访问。所有 HTML 元素（节点）均可被修改，也可以创建或删除节点。
+JS操作DOM的方法（Ref：http://www.w3school.com.cn/htmldom/dom_methods.asp）
+
+  1.2 CSS，CSS3，和其之间的区别
+CSS：层叠样式表(英文全称：Cascading Style Sheets)是一种用来表现HTML（标准通用标记语言的一个应用）或XML（标准通用标记语言的一个子集）等文件样式的计算机语言。CSS不仅可以静态地修饰网页，还可以配合各种脚本语言动态地对网页各元素进行格式化。
+
+CSS盒模型本质上是一个盒子，封装周围的HTML元素，它包括：边距，边框，填充，和实际内容。
+盒模型允许我们在其它元素和周围元素边框之间的空间放置元素。
+
+  1.3 JS
+    1.3.1 js是弱类型语言，什么是弱类型语言。和强类型语言的区别
+
+弱类型语言是指数据类型可以被忽略的语言，与强类型定义语言相反，一个变量可以赋不同的数据类型的值。--速度较快
+强类型语言是指变量类型一旦被指明了数据类型，如果不经过强制转换，该变量永远就是这种数据类型。-安全性与严谨性
+
+    1.3.2 是否是面向对象？（Ref:https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Introduction_to_Object-Oriented_JavaScript）
+JavaScript 的核心是支持面向对象的，同时它也提供了强大灵活的 OOP 语言能力。
+什么是面向对象：
+一切事物皆对象
+对象具有封装和继承特性
+对象与对象之间使用消息通信，各自存在信息隐藏
+并不依赖某种语言存在。类实现了面向对象（java，cpp），js通过原型实现了面向对象。
+    1.3.3 JS面向对象的实现
+                                在基于类的面向对象方式中，对象（object）依靠类（class）来产生。
+                        在基于原型的面向对象方式中，对象（object）则是依靠 构造器（constructor）利用 原型（prototype）构造出来的。
+对象（函数对象）
+            Array、Object等都会通过new操作符返回一个普通对象。尽管函数本身也是一个对象，但它与普通的对象还是有区别的，因为它同时也是对象构造器，也就是说，可以new一个函数来返回一个对象。所有typeof返回“function”的对象都是函数对象。也称这样的对象为构造器（constructor），因而，所有的构造器都是对象，但不是所有的对象都是构造器。
+  *函数对象
+    函数对象其本身即是对象，又可以作为对象构造器生成对象。（或者说，函数，即是构造器constructor)
+如，     
+var o = new Object();
+alert(typeof(o));
+alert(o.constructor);
+
+var a= new Array()
+print a.constructor
+ƒ Array() { [native code] }
+
+print typeof(a.constructor)
+"function"
+
+print typeof(a)
+"object"
+
+print a
+[]
+length:0
+__proto__:Array(0)
+        concat:ƒ concat()
+        constructor:ƒ Array()
+        copyWithin:ƒ copyWithin()
+        entries:ƒ entries()
+        every:ƒ every()
+        fill:ƒ fill()
+        filter:ƒ filter()
+        find:ƒ find()
+        findIndex:ƒ findIndex()
+        forEach:ƒ forEach()
+        includes:ƒ includes()
+        indexOf:ƒ indexOf()
+        join:ƒ join()
+        keys:ƒ keys()
+        lastIndexOf:ƒ lastIndexOf()
+        length:0
+        map:ƒ map()
+        pop:ƒ pop()
+        push:ƒ push()
+        reduce:ƒ reduce()
+        reduceRight:ƒ reduceRight()
+        reverse:ƒ reverse()
+        shift:ƒ shift()
+        slice:ƒ slice()
+        some:ƒ some()
+        sort:ƒ sort()
+        splice:ƒ splice()
+        toLocaleString:ƒ toLocaleString()
+        toString:ƒ toString()
+        unshift:ƒ unshift()
+        values:ƒ values()
+        Symbol(Symbol.iterator):ƒ values()
+        Symbol(Symbol.unscopables):{copyWithin: true, entries: true, fill: true, find: true, findIndex: true, …}
+        __proto__:Object
+这说明，a是通过Array()函数构造出来的对象。Array本身是是一个函数对象
+此外，无论是js内部的函数对象还是开发人员自己写的函数对象。都是属于函数对象。
+开发人员自己编写的，一般如下几类：
+function foo1() {}
+var foo2 = function(){} //匿名函数对象
+var foo3 = function foo4(){}
+var foo5 = new Function(); //这玩意儿怎么用？需要研究下
+原型链
+对于非函数对象来说，其继承链通过__proto__链起来。
+var a = {
+    a1 : 1,
+    a2 : 2
+}
+var b = {
+    b1: 11,
+    __proto__: a
+}
+
+print b
+b1:11                               
+__proto__:                               
+        a1:1                       
+        a2:2                       
+        __proto__:               
+                constructor:ƒ Object()
+                hasOwnProperty:ƒ hasOwnProperty()       
+                isPrototypeOf:ƒ isPrototypeOf()       
+                propertyIsEnumerable:ƒ propertyIsEnumerable()               
+                toLocaleString:ƒ toLocaleString()               
+                toString:ƒ toString()       
+                valueOf:ƒ valueOf()       
+                __defineGetter__:ƒ __defineGetter__()       
+                __defineSetter__:ƒ __defineSetter__()               
+                __lookupGetter__:ƒ __lookupGetter__()               
+                __lookupSetter__:ƒ __lookupSetter__()                       
+                get __proto__:ƒ __proto__()
+
+但是更为常用的是通过函数对象生成对象，实现继承，此时，函数对象通过修改prototype实现修改其constructor。
+var c = function() {
+  this.c1 = 1；
+  this.c2 = 2;
+}
+
+c.prototype = {
+  e1: 1;
+  say: function(){
+    console.log("e hello world");
+  }
+}
+
+g = new c()
+
+print g
+c1:1
+c2:2
+        __proto__:
+        e1:1
+        say:ƒ ()
+        __proto__:
+                constructor:ƒ Object()
+                hasOwnProperty:ƒ hasOwnProperty()
+                isPrototypeOf:ƒ isPrototypeOf()
+                propertyIsEnumerable:ƒ propertyIsEnumerable()
+                toLocaleString:ƒ toLocaleString()
+                toString:ƒ toString()
+                valueOf:ƒ valueOf()
+                __defineGetter__:ƒ __defineGetter__()
+                __defineSetter__:ƒ __defineSetter__()
+                __lookupGetter__:ƒ __lookupGetter__()
+                __lookupSetter__:ƒ __lookupSetter__()
+                get __proto__:ƒ __proto__()
+                set __proto__:ƒ __proto__()
+
+
+2. 开发框架
+  2.1 什么是MV*
+  2.2 什么是原生JS
+  2.3 各种JS框架及其优劣对比
+                vuejs
+angularjs
+reactjs
+  2.4 原生JS和JS框架的区别
+3. JS的学习方法与地址
+4. 闭包
+
+
+４.　工具链
+５.　内核
